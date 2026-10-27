@@ -119,7 +119,13 @@ export function Footer() {
             <h3>{'Visit us'}</h3>
             <p className="muted">{contact.address}</p>
             <a href={`tel:${contact.tel}`}>{contact.phone}</a>
-            <a href="/contact">{'Get directions ↗'}</a>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contact.address)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {'Get directions ↗'}
+            </a>
           </div>
         </div>
       </div>

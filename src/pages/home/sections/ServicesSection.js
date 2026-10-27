@@ -6,7 +6,11 @@ export function ServicesSection() {
       <div className="shell">
         <div className="home-services-intro reveal">
           <div className="home-services-title">
-            <Heading>A comprehensive set of services</Heading>
+            <Heading>
+              <span className="home-services-heading-line">A comprehensive</span>
+              <br />
+              <span className="home-services-heading-line">set of services</span>
+            </Heading>
             <div className="home-services-actions">
               <Button href="/contact">Get expert guidance</Button>
               <Button href="/service" outline arrow={false}>

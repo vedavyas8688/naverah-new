@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ArrowDown,
   ArrowUpRight,
@@ -49,6 +49,43 @@ export function PropertyPage({ p }) {
     ...(p.plans.length ? ['Floor plans'] : []),
     ...(p.locationBody ? ['Location'] : []),
   ];
+
+  useEffect(() => {
+    const sectionIds = tabs.map((name) => name.toLowerCase().replaceAll(' ', '-'));
+    let frame;
+
+    const updateActiveSection = () => {
+      frame = undefined;
+      const navigation = document.querySelector('.property-tabs');
+      const marker = window.scrollY + (navigation?.offsetHeight || 0) + 36;
+      let activeSection = sectionIds[0];
+
+      for (const id of sectionIds) {
+        const section = document.getElementById(id);
+        if (section && section.offsetTop <= marker) activeSection = id;
+      }
+
+      const activeTab = tabs.find(
+        (name) => name.toLowerCase().replaceAll(' ', '-') === activeSection,
+      );
+      if (activeTab) setTab((current) => (current === activeTab ? current : activeTab));
+    };
+
+    const handleScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateActiveSection);
+    };
+
+    updateActiveSection();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [p.url, tabs.join('|')]);
+
   return (
     <>
       <PropertyHeroSection p={p} tab={tab} setTab={setTab} tabs={tabs} />

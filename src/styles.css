@@ -369,8 +369,8 @@ small {
   position: absolute;
   right: 24px;
   bottom: 54px;
-  width: 136px;
-  height: 136px;
+  width: 92px;
+  height: 92px;
   border: 1px solid var(--color-white-60);
   border-radius: 50%;
   display: grid;
@@ -405,34 +405,33 @@ button:hover .picture img {
   padding-bottom: 40px;
 }
 .trusted-developers {
-  padding: 38px 0;
+  overflow: hidden;
+  padding: 34px 0;
   background: var(--color-white);
   border-top: 1px solid var(--color-border);
 }
-.trusted-developers-row {
-  display: grid;
-  grid-template-columns: 170px 1fr;
-  align-items: center;
-  gap: 54px;
+.trusted-developers-marquee {
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
 }
-.trusted-developers-row > p {
-  color: var(--color-primary);
-  font-size: 18px;
-  font-weight: 500;
-}
-.trusted-developers-logos {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(100px, 1fr));
+.trusted-developers-track {
+  display: flex;
   align-items: center;
-  gap: 28px;
+  width: max-content;
+  animation: trusted-developers-scroll 42s linear infinite;
+}
+.trusted-developers-marquee:hover .trusted-developers-track {
+  animation-play-state: paused;
 }
 .trusted-developer-logo {
   display: flex;
-  height: 72px;
+  width: clamp(175px, 14vw, 210px);
+  height: 100px;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  opacity: 1;
-  filter: none;
+  padding: 8px 12px;
   transition: transform 0.25s ease;
 }
 .trusted-developer-logo:hover {
@@ -440,42 +439,32 @@ button:hover .picture img {
 }
 .trusted-developer-logo img {
   width: 100%;
-  max-width: 168px;
-  height: 58px;
+  max-width: 190px;
+  height: 82px;
   object-fit: contain;
 }
-.trusted-developer-logo:nth-child(2) img,
-.trusted-developer-logo:nth-child(5) img {
-  transform: scale(1.22);
-}
-.trusted-developer-logo:nth-child(1) img,
-.trusted-developer-logo:nth-child(4) img,
-.trusted-developer-logo:nth-child(6) img {
-  transform: scale(1.1);
+@keyframes trusted-developers-scroll {
+  to {
+    transform: translateX(-50%);
+  }
 }
 @media (max-width: 900px) {
-  .trusted-developers-row {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .trusted-developers-logos {
-    grid-template-columns: repeat(3, 1fr);
+  .trusted-developers-track {
+    animation-duration: 36s;
   }
 }
 @media (max-width: 520px) {
   .trusted-developers {
-    padding: 34px 0;
-  }
-  .trusted-developers-logos {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
+    padding: 25px 0;
   }
   .trusted-developer-logo {
-    height: 64px;
+    width: 155px;
+    height: 78px;
+    padding: 6px 10px;
   }
   .trusted-developer-logo img {
-    max-width: 150px;
-    height: 54px;
+    max-width: 142px;
+    height: 64px;
   }
 }
 .trust-row + .split-story {
@@ -1017,15 +1006,18 @@ button:hover .picture img {
 }
 .home-services-intro {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.78fr);
-  gap: clamp(72px, 12vw, 190px);
+  grid-template-columns: minmax(0, 1.22fr) minmax(320px, 0.78fr);
+  gap: clamp(56px, 8vw, 120px);
   align-items: start;
 }
 .home-services-title .heading {
-  max-width: 620px;
-  font-size: clamp(52px, 5.2vw, 82px);
-  line-height: 1.02;
-  letter-spacing: -0.05em;
+  max-width: 760px;
+  font-size: clamp(52px, 4.65vw, 74px);
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+}
+.home-services-heading-line {
+  white-space: nowrap;
 }
 .home-services-actions {
   display: flex;
@@ -1035,12 +1027,12 @@ button:hover .picture img {
 }
 .home-services-description {
   max-width: 470px;
-  padding-top: 8px;
+  padding-top: 6px;
   font-size: 18px;
   line-height: 1.65;
 }
 .home-services-list .service-grid {
-  margin-top: 46px;
+  margin-top: 64px;
 }
 .home-services-list .service-item {
   min-height: 300px;
@@ -1048,11 +1040,11 @@ button:hover .picture img {
 }
 .home-services-list .service-item:nth-child(1),
 .home-services-list .service-item:nth-child(4) {
-  transform: translateY(108px);
+  transform: translateY(72px);
 }
 .home-services-list .service-item:nth-child(2),
 .home-services-list .service-item:nth-child(5) {
-  transform: translateY(54px);
+  transform: translateY(36px);
 }
 .home-services-list .service-item h3 {
   font-size: 27px;
@@ -1067,7 +1059,7 @@ button:hover .picture img {
   clear: both;
 }
 .home-services-section {
-  padding-bottom: 190px;
+  padding-bottom: 150px;
 }
 .project-mosaic {
   display: grid;
@@ -2163,6 +2155,14 @@ button:hover .picture img {
 .property-tabs .active {
   color: var(--color-primary);
   border-color: var(--color-primary);
+}
+#overview,
+#amenities,
+#gallery,
+#pricing,
+#floor-plans,
+#location {
+  scroll-margin-top: 64px;
 }
 .property-summary {
   border: 1px solid var(--line);
@@ -4754,6 +4754,9 @@ button:hover .picture img {
 }
 
 @media (max-width: 600px) {
+  .home-services-heading-line {
+    white-space: normal;
+  }
   .home-services-title .heading {
     font-size: clamp(42px, 13vw, 58px);
   }

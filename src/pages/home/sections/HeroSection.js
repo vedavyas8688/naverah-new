@@ -27,7 +27,7 @@ export function HeroSection() {
           </div>
         </div>
         <a className="scroll-circle" href="#about" aria-label="Scroll to about Naverah">
-          <ArrowDown size={32} strokeWidth={1} />
+          <ArrowDown size={24} strokeWidth={1.25} />
         </a>
       </div>
     </section>
