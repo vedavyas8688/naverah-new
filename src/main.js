@@ -159,6 +159,48 @@ function App() {
               clearProps: 'all',
             });
           });
+          document
+            .querySelectorAll('.home-services-section:not([data-animated])')
+            .forEach((section) => {
+              section.dataset.animated = 'true';
+              const intro = section.querySelector('.home-services-intro');
+              const heading = section.querySelector('.home-services-title .heading');
+              const description = section.querySelector('.home-services-description');
+              const actions = section.querySelector('.home-services-actions');
+              const cards = Array.from(section.querySelectorAll('.service-item'));
+
+              if (intro) intro.dataset.animated = 'true';
+              cards.forEach((card) => (card.dataset.animated = 'true'));
+
+              const timeline = gsap.timeline({
+                scrollTrigger: {
+                  trigger: section,
+                  start: 'top 78%',
+                  once: true,
+                },
+                defaults: {
+                  duration: 1.05,
+                  ease: 'power3.out',
+                  clearProps: 'all',
+                },
+              });
+
+              if (heading) timeline.from(heading, { opacity: 0, y: 34 });
+              if (description) timeline.from(description, { opacity: 0, y: 26 }, '>-0.62');
+              if (actions) timeline.from(actions, { opacity: 0, y: 22 }, '>-0.58');
+              if (cards.length)
+                timeline.from(
+                  cards,
+                  {
+                    opacity: 0,
+                    y: 42,
+                    scale: 0.985,
+                    duration: 1.15,
+                    stagger: 0.24,
+                  },
+                  '>-0.38',
+                );
+            });
           document.querySelectorAll('.journey-steps:not([data-animated])').forEach((group) => {
             group.dataset.animated = 'true';
             gsap.from(group.querySelectorAll('.journey-step'), {

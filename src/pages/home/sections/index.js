@@ -2,6 +2,7 @@ export { AboutSection } from './AboutSection.js';
 export { ArticlesSection } from './ArticlesSection.js';
 export { FeaturedPropertiesSection } from './FeaturedPropertiesSection.js';
 export { HeroSection } from './HeroSection.js';
+export { HomeStorySection } from './HomeStorySection.js';
 export { JourneySection } from './JourneySection.js';
 export { PartnersSection } from './PartnersSection.js';
 export { ServicesSection } from './ServicesSection.js';
