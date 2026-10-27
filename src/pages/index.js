@@ -1,0 +1,12 @@
+export { HomePage } from './home/HomePage.js';
+export { AboutPage } from './about/AboutPage.js';
+export { ServicesPage } from './services/ServicesPage.js';
+export { ServicePage } from './service/ServicePage.js';
+export { PropertiesPage } from './properties/PropertiesPage.js';
+export { PropertyPage } from './property/PropertyPage.js';
+export { BlogPage } from './blog/BlogPage.js';
+export { ArticlePage } from './article/ArticlePage.js';
+export { TeamPage } from './team/TeamPage.js';
+export { MemberPage } from './member/MemberPage.js';
+export { ContactPage } from './contact/ContactPage.js';
+export { NotFoundPage } from './notfound/NotFoundPage.js';
