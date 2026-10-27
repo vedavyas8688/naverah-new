@@ -5,6 +5,7 @@ import {
   FeaturedPropertiesSection,
   HeroSection,
   JourneySection,
+  PartnersSection,
   ServicesSection,
   TestimonialsSection,
 } from './sections/index.js';
@@ -16,6 +17,7 @@ export function HomePage() {
       <AboutSection />
       <ServicesSection />
       <FeaturedPropertiesSection />
+      <PartnersSection />
       <CTA />
       <JourneySection />
       <TestimonialsSection />

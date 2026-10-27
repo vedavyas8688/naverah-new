@@ -1,5 +1,5 @@
 import { ArrowRight, Instagram } from 'lucide-react';
-import { Picture } from '../../../components/index.js';
+import { Picture } from './ui.js';
 
 const instagramUrl = 'https://www.instagram.com/naverahassets/';
 const images = [

@@ -1,5 +1,6 @@
 ﻿import { ArrowUpRight } from 'lucide-react';
 import { members } from '../data.js';
+import { shouldShowArticleDate } from '../utils/articlePublication.js';
 import { Picture } from './ui.js';
 export function PropertyCard({ p, large = false }) {
   return (
@@ -32,7 +33,7 @@ export function BlogCard({ a, featured = false }) {
         <h3>{a.title}</h3>
         {featured && <p className="muted mt-5 line-clamp-3">{a.description}</p>}
         <div className="flex justify-between items-center gap-3 mt-6 text-sm">
-          <span>{a.date || 'Real estate insights'}</span>
+          <span>{shouldShowArticleDate(a) ? a.date : 'Real estate insights'}</span>
           <ArrowUpRight size={20} />
         </div>
       </div>

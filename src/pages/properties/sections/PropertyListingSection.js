@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   ArrowDown,
   ArrowUpRight,
@@ -46,8 +46,17 @@ export function PropertyListingSection({
   setPage,
   found,
 }) {
+  const resultsRef = useRef(null);
+
+  const changePage = (nextPage) => {
+    setPage(nextPage);
+    requestAnimationFrame(() => {
+      resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
+
   return (
-    <section className="portfolio-list shell">
+    <section className="portfolio-list shell" ref={resultsRef}>
       <div className="filter-bar">
         <label className="search-field">
           <Search size={21} />
@@ -115,12 +124,12 @@ export function PropertyListingSection({
           ))}
         </select>
       </div>
-      <p className="muted text-sm mb-10" aria-live="polite">
-        {found.length}
-        {' properties'}
-      </p>
       {found.length ? (
-        found.slice((page - 1) * 6, page * 6).map((p) => <PropertyCard p={p} large key={p.slug} />)
+        <div className="properties-list-grid">
+          {found.slice((page - 1) * 6, page * 6).map((p) => (
+            <PropertyCard p={p} key={p.slug} />
+          ))}
+        </div>
       ) : (
         <div className="empty-state">
           <h2>{'No properties found'}</h2>
@@ -138,7 +147,7 @@ export function PropertyListingSection({
           </button>
         </div>
       )}
-      <Pagination page={page} count={Math.ceil(found.length / 6)} change={setPage} />
+      <Pagination page={page} count={Math.ceil(found.length / 6)} change={changePage} />
     </section>
   );
 }

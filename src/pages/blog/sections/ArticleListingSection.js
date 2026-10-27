@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   ArrowDown,
   ArrowUpRight,
@@ -30,8 +30,17 @@ import {
   TeamGrid,
 } from '../../../components/index.js';
 export function ArticleListingSection({ query, setQuery, page, setPage, found }) {
+  const resultsRef = useRef(null);
+
+  const changePage = (nextPage) => {
+    setPage(nextPage);
+    requestAnimationFrame(() => {
+      resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
+
   return (
-    <section className="section soft">
+    <section className="section soft blog-results" ref={resultsRef}>
       <div className="shell">
         <div className="section-head">
           <Heading>{'Latest articles'}</Heading>
@@ -48,17 +57,13 @@ export function ArticleListingSection({ query, setQuery, page, setPage, found })
             />
           </label>
         </div>
-        <p className="muted mb-8" aria-live="polite">
-          {found.length}
-          {' articles'}
-        </p>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
           {found.slice((page - 1) * 12, page * 12).map((a) => (
             <BlogCard a={a} key={a.slug} />
           ))}
         </div>
         {!found.length && <p className="empty-state">{'No articles match your search.'}</p>}
-        <Pagination page={page} count={Math.ceil(found.length / 12)} change={setPage} />
+        <Pagination page={page} count={Math.ceil(found.length / 12)} change={changePage} />
       </div>
     </section>
   );

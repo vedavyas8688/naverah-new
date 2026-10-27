@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   ArrowDown,
+  ArrowLeft,
   ArrowUpRight,
   Building2,
   Check,
@@ -33,11 +34,12 @@ export function ArticleHeroSection({ a }) {
   return (
     <section className="article-top">
       <div className="shell">
+        <a className="article-back hero-enter" href="/blog">
+          <ArrowLeft size={18} />
+          <span>{'Back to all articles'}</span>
+        </a>
         <div className="max-w-[1100px] mx-auto text-center">
-          <p className="eyebrow hero-enter">
-            {'Real estate insights'}
-            {a.date && ` / ${a.date}`}
-          </p>
+          <p className="eyebrow hero-enter">{'Real estate insights'}</p>
           <Heading tag="h1" className="hero-enter mt-7">
             {a.title}
           </Heading>

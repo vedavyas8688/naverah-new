@@ -22,6 +22,7 @@ import {
   FAQ,
   Gallery,
   Heading,
+  InstagramSection,
   Office,
   Pagination,
   Picture,
@@ -35,7 +36,6 @@ import { ValuesSection } from './sections/ValuesSection.js';
 import { AboutTeamSection } from './sections/AboutTeamSection.js';
 import { OfficeSection } from './sections/OfficeSection.js';
 import { FaqSection } from './sections/FaqSection.js';
-import { InstagramSection } from './sections/InstagramSection.js';
 export function AboutPage() {
   return (
     <>

@@ -5,38 +5,17 @@ export function ContactForm({ compact = false, subject = 'Property enquiry' }) {
   const [status, setStatus] = useState(''),
     [busy, setBusy] = useState(false),
     [draft, setDraft] = useState('');
-  async function submit(e) {
+  function submit(e) {
     e.preventDefault();
     setBusy(true);
     setStatus('');
     const form = e.currentTarget;
     const values = Object.fromEntries(new FormData(form).entries());
-    const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT;
     const body = `${subject}\n\nName: ${values.name}\nEmail: ${values.email}\nPhone: ${values.phone}\n\n${values.message || ''}`;
-    if (endpoint) {
-      try {
-        const r = await fetch(endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            ...values,
-            subject,
-          }),
-        });
-        if (!r.ok) throw Error();
-        setStatus('Thank you. Your enquiry has been sent.');
-        form.reset();
-      } catch {
-        setStatus('Your enquiry could not be sent. Please call or email us directly.');
-      }
-    } else {
-      setDraft(
-        `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
-      );
-      setStatus('Your enquiry is ready. Open your email app below to review and send it.');
-    }
+    setDraft(
+      `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
+    );
+    setStatus('Your enquiry is ready. Open your email app below to review and send it.');
     setBusy(false);
   }
   return (
@@ -91,11 +70,7 @@ export function ContactForm({ compact = false, subject = 'Property enquiry' }) {
         </label>
       )}
       <button type="submit" disabled={busy} className="button light form-submit">
-        {busy
-          ? 'Preparingâ€¦'
-          : import.meta.env.VITE_CONTACT_ENDPOINT
-            ? 'Send enquiry'
-            : 'Prepare email enquiry'}
+        {busy ? 'Preparing…' : 'Prepare email enquiry'}
         <ArrowRight size={20} />
       </button>
       <div aria-live="polite">

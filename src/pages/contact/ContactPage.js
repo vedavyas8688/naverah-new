@@ -22,6 +22,7 @@ import {
   FAQ,
   Gallery,
   Heading,
+  InstagramSection,
   Office,
   Pagination,
   Picture,
@@ -37,6 +38,7 @@ export function ContactPage() {
     <>
       <ContactHeroSection />
       <OfficeSection />
+      <InstagramSection />
       <FaqSection />
     </>
   );

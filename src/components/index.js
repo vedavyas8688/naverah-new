@@ -9,3 +9,4 @@ export { ContactForm } from './ContactForm.js';
 export { Gallery } from './Gallery.js';
 export { Pagination } from './Pagination.js';
 export { Office } from './OfficeLocation.js';
+export { InstagramSection } from './InstagramSection.js';
