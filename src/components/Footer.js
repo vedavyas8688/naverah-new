@@ -1,14 +1,19 @@
-﻿import { contact, data, services } from '../data.js';
+import { contact, data, properties, services } from '../data.js';
 import { Button, Heading } from './ui.js';
+
 export function Footer() {
+  const footerImage = properties[0]?.hero || properties[0]?.image || data.images.about;
+
   return (
     <footer className="footer dark">
-      <div className="shell">
-        <div className="footer-top reveal">
+      <div className="footer-visual-cta reveal">
+        <img src={footerImage} alt="Premium Naverah property" loading="lazy" />
+        <div className="footer-visual-overlay" />
+        <div className="shell footer-visual-content">
           <Heading>
-            {'Let\u2019s find your'}
+            {'Let’s work'}
             <br />
-            {'perfect property.'}
+            {'together.'}
           </Heading>
           <div className="flex gap-5 flex-wrap">
             <Button light />
@@ -17,6 +22,9 @@ export function Footer() {
             </Button>
           </div>
         </div>
+      </div>
+
+      <div className="shell">
         <div className="footer-grid">
           <div>
             <a href="/" className="brand footer-brand">
@@ -38,17 +46,17 @@ export function Footer() {
               ['Services', '/service'],
               ['Blog', '/blog'],
               ['Team', '/agent'],
-            ].map(([n, u]) => (
-              <a href={u} key={u}>
-                {n}
+            ].map(([name, url]) => (
+              <a href={url} key={url}>
+                {name}
               </a>
             ))}
           </div>
           <div>
             <h3>{'Our services'}</h3>
-            {services.slice(0, 5).map((s) => (
-              <a href={s.url} key={s.slug}>
-                {s.title}
+            {services.slice(0, 5).map((service) => (
+              <a href={service.url} key={service.slug}>
+                {service.title}
               </a>
             ))}
           </div>
@@ -56,19 +64,19 @@ export function Footer() {
             <h3>{'Visit us'}</h3>
             <p className="muted">{contact.address}</p>
             <a href={`tel:${contact.tel}`}>{contact.phone}</a>
-            <a href="/contact">{'Get directions \u2197'}</a>
+            <a href="/contact">{'Get directions ↗'}</a>
           </div>
         </div>
         <div className="footer-bottom">
           <p>
-            {'\u00A9 '}
+            {'© '}
             {new Date().getFullYear()}
             {' Naverah Assets Private Limited. All rights reserved.'}
           </p>
           <p className="footer-credit">
             {'Designed & developed by '}
             <a href="https://hirolainfotech.com/" target="_blank" rel="noopener noreferrer">
-              {'Hirola InfoTech Solutions Pvt. Ltd. \u2197'}
+              {'Hirola InfoTech Solutions Pvt. Ltd. ↗'}
             </a>
           </p>
         </div>

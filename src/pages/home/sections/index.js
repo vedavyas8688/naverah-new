@@ -6,3 +6,4 @@ export { JourneySection } from './JourneySection.js';
 export { PartnersSection } from './PartnersSection.js';
 export { ServicesSection } from './ServicesSection.js';
 export { TestimonialsSection } from './TestimonialsSection.js';
+export { TrustedDevelopersSection } from './TrustedDevelopersSection.js';

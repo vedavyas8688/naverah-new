@@ -1,35 +1,75 @@
+import { useEffect, useRef, useState } from 'react';
 import { Button, Heading, Picture } from '../../../components/index.js';
-import { data } from '../../../data.js';
+import { data, properties, services } from '../../../data.js';
+
+function AnimatedNumber({ value, suffix = '' }) {
+  const [displayValue, setDisplayValue] = useState(0);
+  const numberRef = useRef(null);
+
+  useEffect(() => {
+    const element = numberRef.current;
+    if (!element) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+
+        observer.disconnect();
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          setDisplayValue(value);
+          return;
+        }
+
+        const duration = 1100;
+        const startTime = performance.now();
+        const update = (currentTime) => {
+          const progress = Math.min((currentTime - startTime) / duration, 1);
+          const easedProgress = 1 - Math.pow(1 - progress, 3);
+          setDisplayValue(Math.round(value * easedProgress));
+          if (progress < 1) requestAnimationFrame(update);
+        };
+        requestAnimationFrame(update);
+      },
+      { threshold: 0.45 },
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [value]);
+
+  return (
+    <span ref={numberRef}>
+      {displayValue}
+      {suffix}
+    </span>
+  );
+}
 
 export function AboutSection() {
+  const facts = [
+    [properties.length, '', 'Properties to explore'],
+    [services.length, '', 'Real estate services'],
+    [10, '+', 'Years of industry experience'],
+  ];
+
   return (
-    <section id="about" className="section">
-      <div className="shell">
-        <div className="trust-row reveal">
-          <h2>
-            Property expertise.
-            <br />
-            Personal guidance.
-          </h2>
-          <p>
-            RERA-authorised
-            <br />
-            <span>Channel partner</span>
-          </p>
-          <p>
-            10+ years
-            <br />
-            <span>Industry experience</span>
-          </p>
-          <p>
-            Bangalore
-            <br />
-            <span>Local market knowledge</span>
-          </p>
+    <section id="about" className="section home-about-feature">
+      <div className="shell home-about-feature-grid">
+        <dl className="home-about-facts reveal">
+          {facts.map(([value, suffix, label]) => (
+            <div key={label}>
+              <dd>
+                <AnimatedNumber value={value} suffix={suffix} />
+              </dd>
+              <dt>{label}</dt>
+            </div>
+          ))}
+        </dl>
+        <div className="home-about-visual reveal">
+          <Picture src={data.images.about} alt="Naverah real estate" />
         </div>
-        <div className="split-story mt-24">
-          <Picture src={data.images.about} alt="Naverah real estate" className="reveal" />
-          <div className="reveal">
+        <div className="home-about-copy reveal">
+          <div>
             <Heading>Your trusted partner in property and investment</Heading>
             <p className="muted mt-7">
               Led by directors with 10+ years of proven industry experience, Naverah Assets bridges

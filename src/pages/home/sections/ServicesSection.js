@@ -2,21 +2,27 @@ import { Button, Heading, ServiceGrid } from '../../../components/index.js';
 
 export function ServicesSection() {
   return (
-    <section className="section soft">
+    <section className="section home-services-section">
       <div className="shell">
-        <div className="section-head reveal">
-          <div className="max-w-2xl">
+        <div className="home-services-intro reveal">
+          <div className="home-services-title">
             <Heading>A comprehensive set of services</Heading>
-            <p className="muted mt-6">
-              Real estate solutions tailored to your lifestyle and investment goals. From discovery
-              and site visits to documentation and deal closure.
-            </p>
+            <div className="home-services-actions">
+              <Button href="/contact">Get expert guidance</Button>
+              <Button href="/service" outline arrow={false}>
+                Browse all services
+              </Button>
+            </div>
           </div>
-          <Button href="/service" outline arrow={false}>
-            Browse all services
-          </Button>
+          <p className="muted home-services-description">
+            Personalised real estate support for every stage of your property journey, from
+            discovery and finance to documentation, site visits, investment guidance, resale, and
+            leasing.
+          </p>
         </div>
-        <ServiceGrid limit={6} />
+        <div className="home-services-list">
+          <ServiceGrid limit={6} />
+        </div>
       </div>
     </section>
   );

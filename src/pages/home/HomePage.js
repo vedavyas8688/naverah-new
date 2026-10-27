@@ -8,12 +8,14 @@ import {
   PartnersSection,
   ServicesSection,
   TestimonialsSection,
+  TrustedDevelopersSection,
 } from './sections/index.js';
 
 export function HomePage() {
   return (
     <>
       <HeroSection />
+      <TrustedDevelopersSection />
       <AboutSection />
       <ServicesSection />
       <FeaturedPropertiesSection />

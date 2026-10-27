@@ -1,33 +1,64 @@
-import { Heading, Picture } from '../../../components/index.js';
-import { data, properties } from '../../../data.js';
+import { useState } from 'react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { Button, Heading } from '../../../components/index.js';
+import { data } from '../../../data.js';
 
 export function TestimonialsSection() {
+  const testimonials = data.testimonials;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const testimonial = testimonials[activeIndex];
+  const sentences = testimonial.quote.split('.');
+  const headline = sentences[0];
+  const description = sentences.slice(1).join('.').trim();
+
+  const showPrevious = () => {
+    setActiveIndex((current) => (current - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const showNext = () => {
+    setActiveIndex((current) => (current + 1) % testimonials.length);
+  };
+
   return (
-    <section className="section soft">
-      <div className="shell">
-        <Heading className="text-center max-w-[650px] mx-auto reveal">
-          What our customers say about us
-        </Heading>
-        <div className="testimonials-grid">
-          {data.testimonials.slice(0, 3).map((testimonial, index) => (
-            <div
-              className={`testimonial reveal ${index === 1 ? 'middle' : ''}`}
-              key={testimonial.name}
-            >
-              <div className="testimonial-copy">
-                <h3>“{testimonial.quote.split('.')[0]}.”</h3>
-                <p className="muted mt-6">
-                  {testimonial.quote.split('.').slice(1).join('.').trim()}
-                </p>
-                <div className="mt-7">
-                  {testimonial.name}
-                  <span className="mx-4 opacity-40">|</span>
-                  {testimonial.role}
-                </div>
+    <section className="section home-testimonial-slider">
+      <div className="shell home-testimonial-layout">
+        <div className="home-testimonial-intro reveal">
+          <p className="eyebrow">{'Client experiences'}</p>
+          <Heading>What our customers say</Heading>
+          <p className="muted">
+            {'Real stories from buyers and investors who trusted us with their property journey.'}
+          </p>
+          <Button href="/contact">{'Talk to our team'}</Button>
+        </div>
+
+        <div className="home-testimonial-panel reveal" aria-live="polite">
+          <button
+            className="home-testimonial-arrow previous"
+            type="button"
+            onClick={showPrevious}
+            aria-label="Previous testimonial"
+          >
+            <ArrowLeft />
+          </button>
+          <div className="home-testimonial-content" key={activeIndex}>
+            <blockquote>“{headline}.”</blockquote>
+            {description && <p>{description}</p>}
+            <div className="home-testimonial-person">
+              <span aria-hidden="true">{testimonial.name.charAt(0)}</span>
+              <div>
+                <strong>{testimonial.name}</strong>
+                <small>{testimonial.role}</small>
               </div>
-              <Picture src={properties[index + 2].image} alt={properties[index + 2].title} />
             </div>
-          ))}
+          </div>
+          <button
+            className="home-testimonial-arrow next"
+            type="button"
+            onClick={showNext}
+            aria-label="Next testimonial"
+          >
+            <ArrowRight />
+          </button>
         </div>
       </div>
     </section>
