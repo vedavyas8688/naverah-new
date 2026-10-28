@@ -7,6 +7,7 @@ import {
   // HomeStorySection,
   JourneySection,
   PartnersSection,
+  PropertyMarqueeSection,
   ServicesSection,
   TestimonialsSection,
   TrustedDevelopersSection,
@@ -21,11 +22,12 @@ export function HomePage() {
       {/* <HomeStorySection /> */}
       <ServicesSection />
       <FeaturedPropertiesSection />
-      <PartnersSection />
-      <CTA />
+      <PropertyMarqueeSection />
       <JourneySection />
+      <PartnersSection />
       <TestimonialsSection />
       <ArticlesSection />
+      <CTA />
     </>
   );
 }

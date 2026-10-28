@@ -5,6 +5,7 @@ export { HeroSection } from './HeroSection.js';
 export { HomeStorySection } from './HomeStorySection.js';
 export { JourneySection } from './JourneySection.js';
 export { PartnersSection } from './PartnersSection.js';
+export { PropertyMarqueeSection } from './PropertyMarqueeSection.js';
 export { ServicesSection } from './ServicesSection.js';
 export { TestimonialsSection } from './TestimonialsSection.js';
 export { TrustedDevelopersSection } from './TrustedDevelopersSection.js';

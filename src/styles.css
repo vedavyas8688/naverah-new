@@ -1093,6 +1093,213 @@ button:hover .picture img {
   font-size: 13px;
   margin-bottom: 5px;
 }
+.property-marquee-section {
+  --marquee-card-width: clamp(270px, 24vw, 370px);
+  overflow: hidden;
+  padding: 88px 0 72px;
+  color: var(--color-white);
+  background: var(--color-secondary);
+}
+.property-marquee-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.7fr);
+  gap: clamp(40px, 6vw, 88px);
+  align-items: center;
+  margin-bottom: 40px;
+}
+.property-marquee-heading .eyebrow {
+  color: var(--color-primary);
+}
+.property-marquee-heading h2 {
+  max-width: 700px;
+  margin-top: 16px;
+  font-size: clamp(42px, 4.7vw, 70px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+.property-marquee-heading p {
+  max-width: 460px;
+  color: var(--color-white-70);
+  font-size: 17px;
+  line-height: 1.65;
+}
+.property-marquee-viewport {
+  width: 100%;
+  min-height: 450px;
+  overflow: hidden;
+  padding: 26px 0 52px;
+  mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+}
+.property-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 18px;
+  padding-left: 18px;
+  animation: property-marquee-scroll 58s linear infinite;
+}
+.property-marquee-viewport:hover .property-marquee-track {
+  animation-play-state: paused;
+}
+.property-marquee-card {
+  position: relative;
+  display: block;
+  width: var(--marquee-card-width);
+  height: 350px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  color: var(--color-white);
+  background: #071321;
+  clip-path: polygon(0 4%, 100% 12%, 100% 92%, 0 100%);
+  transform: translateY(0);
+  transition: transform 0.45s ease;
+}
+.property-marquee-card:nth-child(3n + 2) {
+  clip-path: polygon(0 10%, 100% 13%, 100% 89%, 0 94%);
+  transform: translateY(22px);
+}
+.property-marquee-card:nth-child(3n) {
+  clip-path: polygon(0 13%, 100% 7%, 100% 96%, 0 89%);
+  transform: translateY(12px);
+}
+.property-marquee-card:hover {
+  transform: translateY(-5px);
+}
+.property-marquee-card:nth-child(3n + 2):hover {
+  transform: translateY(17px);
+}
+.property-marquee-card:nth-child(3n):hover {
+  transform: translateY(7px);
+}
+.property-marquee-card > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+.property-marquee-card:hover > img {
+  transform: scale(1.055);
+}
+.property-marquee-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 38%, rgba(3, 11, 20, 0.9) 100%);
+}
+.property-marquee-content {
+  position: absolute;
+  right: 28px;
+  bottom: 32px;
+  left: 28px;
+  display: grid;
+  gap: 8px;
+}
+.property-marquee-content small {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.property-marquee-content strong {
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1.15;
+}
+.property-marquee-content > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-primary);
+  font-size: 14px;
+}
+.property-marquee-action {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}
+.property-marquee-button {
+  display: inline-flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 0 28px;
+  color: var(--color-secondary);
+  background: var(--color-primary);
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+.property-marquee-button:hover {
+  background: var(--color-white);
+  transform: translateY(-2px);
+}
+@keyframes property-marquee-scroll {
+  to {
+    transform: translateX(calc(-50% - 9px));
+  }
+}
+@media (max-width: 900px) {
+  .property-marquee-section {
+    --marquee-card-width: 300px;
+    padding: 82px 0 62px;
+  }
+  .property-marquee-heading {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+  .property-marquee-heading p {
+    max-width: 620px;
+  }
+  .property-marquee-viewport {
+    min-height: 420px;
+  }
+  .property-marquee-track {
+    animation-duration: 48s;
+  }
+  .property-marquee-card {
+    height: 320px;
+  }
+}
+@media (max-width: 520px) {
+  .property-marquee-section {
+    --marquee-card-width: 254px;
+    padding: 68px 0 54px;
+  }
+  .property-marquee-heading {
+    padding-right: 22px;
+    padding-left: 22px;
+  }
+  .property-marquee-heading h2 {
+    font-size: 39px;
+  }
+  .property-marquee-heading p {
+    font-size: 15px;
+  }
+  .property-marquee-viewport {
+    min-height: 370px;
+    padding-top: 20px;
+    padding-bottom: 36px;
+  }
+  .property-marquee-track {
+    gap: 12px;
+    padding-left: 12px;
+    animation-duration: 42s;
+  }
+  .property-marquee-card {
+    height: 286px;
+  }
+  .property-marquee-content {
+    right: 22px;
+    bottom: 27px;
+    left: 22px;
+  }
+  .property-marquee-content strong {
+    font-size: 21px;
+  }
+}
 .cta {
   padding: 48px 0;
 }

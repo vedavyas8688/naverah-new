@@ -1,6 +1,9 @@
 import fs from 'node:fs';
 const d = JSON.parse(fs.readFileSync('src/data/content.json'));
 const siteUrl = 'https://www.naverahassets.com';
+const hiddenPropertySlugs = new Set(['whispers-Of-the-wind', 'godrej-yelahanka']);
+
+d.properties = d.properties.filter(({ slug }) => !hiddenPropertySlugs.has(slug));
 
 const escapeXml = (value) =>
   value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
