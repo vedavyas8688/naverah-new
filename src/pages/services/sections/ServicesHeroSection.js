@@ -6,7 +6,9 @@ export function ServicesHeroSection() {
       <div className="shell">
         <div className="services-page-intro hero-enter">
           <p className="eyebrow">Naverah Assets services</p>
-          <h1>A comprehensive set of services</h1>
+          <h1>
+            <span>A comprehensive</span> <span>set of services</span>
+          </h1>
           <p className="muted">
             Personalised real estate guidance from property discovery and financial assistance to
             documentation, site visits, investment advice, resale, and leasing.

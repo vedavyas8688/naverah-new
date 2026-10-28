@@ -42,7 +42,7 @@ export function BlogHeroSection({ query, setQuery, page, setPage, found }) {
       .sort((first, second) => new Date(second.date) - new Date(first.date))[0] || articles[0];
 
   return (
-    <section className="section-top">
+    <section className="section-top blog-page-hero">
       <div className="shell">
         <div className="text-center max-w-[850px] mx-auto hero-enter">
           <Heading tag="h1">{'News & articles'}</Heading>

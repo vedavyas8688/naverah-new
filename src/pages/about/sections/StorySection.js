@@ -5,21 +5,6 @@ export function StorySection() {
   return (
     <section id="our-story" className="section">
       <div className="shell">
-        <div className="split-story about-story-feature">
-          <div className="story-copy reveal">
-            <Heading>{'More than a real estate firm'}</Heading>
-            <p className="muted mt-7">{data.about[0]}</p>
-            <div className="mt-8">
-              <Button />
-            </div>
-          </div>
-          <Picture
-            src="/images/about/about-story-interior.webp"
-            alt="Premium contemporary apartment interior"
-            className="reveal"
-          />
-        </div>
-
         <div className="split-story about-story-feature about-story-feature-reverse">
           <Picture
             src="/images/about/about-mission-light-v2.webp"
@@ -43,6 +28,21 @@ export function StorySection() {
               </Button>
             </div>
           </div>
+        </div>
+
+        <div className="split-story about-story-feature">
+          <div className="story-copy reveal">
+            <Heading>{'More than a real estate firm'}</Heading>
+            <p className="muted mt-7">{data.about[0]}</p>
+            <div className="mt-8">
+              <Button />
+            </div>
+          </div>
+          <Picture
+            src="/images/about/about-story-interior.webp"
+            alt="Premium contemporary apartment interior"
+            className="reveal"
+          />
         </div>
       </div>
     </section>

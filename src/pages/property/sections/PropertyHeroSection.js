@@ -34,7 +34,6 @@ export function PropertyHeroSection({ p, tab, setTab, tabs }) {
     <section className="property-hero dark">
       <div className="hero-visual">
         <img src={p.hero || p.image} alt={p.title} fetchPriority="high" />
-        <div />
       </div>
       <div className="shell relative z-10">
         <p className="hero-enter mb-7 flex gap-2 items-center">
