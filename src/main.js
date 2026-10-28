@@ -75,8 +75,8 @@ function App() {
   let view,
     dark = true,
     meta = {
-      title: 'Naverah Assets | Your Partner in Property',
-      description: 'Find your perfect property in Bangalore with Naverah Assets.',
+      title: pages.index.seoTitle,
+      description: pages.index.description,
     };
   if (home) view = <HomePage />;
   else if (slug === 'about') view = <AboutPage />;
