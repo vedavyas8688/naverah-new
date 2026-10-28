@@ -3,7 +3,7 @@ import { properties } from '../../../data.js';
 
 export function FeaturedPropertiesSection() {
   return (
-    <section className="section">
+    <section className="section home-featured-properties">
       <div className="shell project-mosaic">
         <PropertyCard p={properties[0]} />
         <div className="project-intro reveal">

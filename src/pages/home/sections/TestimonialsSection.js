@@ -67,7 +67,10 @@ export function TestimonialsSection() {
             <ArrowLeft />
           </button>
           <div className="home-testimonial-content" key={activeIndex}>
-            <blockquote>“{headline}.”</blockquote>
+            <blockquote>
+              {'\u201c'}
+              {headline}.{'\u201d'}
+            </blockquote>
             {description && <p>{description}</p>}
             <div className="home-testimonial-person">
               <span aria-hidden="true">{testimonial.name.charAt(0)}</span>
