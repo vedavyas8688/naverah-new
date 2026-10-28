@@ -59,6 +59,7 @@ export function ContactModal() {
         <ContactForm
           compact
           subject={modal.subject}
+          formName="Enquiry modal form"
           onSuccess={() => {
             modal.onSuccess?.();
             if (modal.onSuccess) setModal(null);

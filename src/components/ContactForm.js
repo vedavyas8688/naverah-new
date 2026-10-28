@@ -1,43 +1,59 @@
-﻿import { useState } from 'react';
-import { ArrowRight, Mail } from 'lucide-react';
-import { contact } from '../data.js';
-export function ContactForm({ compact = false, subject = 'Property enquiry', onSuccess }) {
-  const [status, setStatus] = useState(''),
-    [busy, setBusy] = useState(false),
-    [draft, setDraft] = useState('');
-  function submit(e) {
-    e.preventDefault();
+import { useState } from 'react';
+import { ArrowRight } from 'lucide-react';
+
+export function ContactForm({
+  compact = false,
+  subject = 'Property enquiry',
+  formName = 'Website enquiry form',
+  onSuccess,
+}) {
+  const [status, setStatus] = useState('');
+  const [busy, setBusy] = useState(false);
+
+  async function submit(event) {
+    event.preventDefault();
     setBusy(true);
     setStatus('');
-    const form = e.currentTarget;
+    const form = event.currentTarget;
     const values = Object.fromEntries(new FormData(form).entries());
-    const body = `${subject}\n\nName: ${values.name}\nEmail: ${values.email}\nPhone: ${values.phone}\n\n${values.message || ''}`;
-    setDraft(
-      `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
-    );
-    setStatus('Your enquiry is ready. Open your email app below to review and send it.');
-    setBusy(false);
-    onSuccess?.();
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...values, subject, formName }),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.error || 'Unable to send your enquiry.');
+
+      form.reset();
+      setStatus('Thank you. Your enquiry has been sent successfully.');
+      onSuccess?.();
+    } catch (error) {
+      setStatus(error.message || 'Unable to send your enquiry. Please try again.');
+    } finally {
+      setBusy(false);
+    }
   }
+
   return (
     <form onSubmit={submit} className={`contact-form ${compact ? 'compact' : ''}`}>
       <div className={compact ? '' : 'grid sm:grid-cols-2 gap-x-8'}>
         <label>
-          {'Full name'}
+          {'Full name *'}
           <input name="name" placeholder="Enter your full name" autoComplete="name" required />
         </label>
         <label>
-          {'Email address'}
+          {'Email address (optional)'}
           <input
             name="email"
             type="email"
             placeholder="Enter your email address"
             autoComplete="email"
-            required
           />
         </label>
         <label>
-          {'Phone number'}
+          {'Phone number *'}
           <input
             name="phone"
             type="tel"
@@ -49,8 +65,9 @@ export function ContactForm({ compact = false, subject = 'Property enquiry', onS
         </label>
         {!compact && (
           <label>
-            {'Interested in'}
+            {'Interested in (optional)'}
             <select name="interest">
+              <option value="">{'Select an option (optional)'}</option>
               <option>{'Buying a property'}</option>
               <option>{'Property consultation'}</option>
               <option>{'Investment advisory'}</option>
@@ -61,28 +78,15 @@ export function ContactForm({ compact = false, subject = 'Property enquiry', onS
       </div>
       {!compact && (
         <label>
-          {'How can we help?'}
-          <textarea
-            name="message"
-            placeholder="Tell us about your requirements"
-            rows={4}
-            required
-          />
+          {'How can we help? (optional)'}
+          <textarea name="message" placeholder="Tell us about your requirements" rows={4} />
         </label>
       )}
       <button type="submit" disabled={busy} className="button light form-submit">
-        {busy ? 'Preparing…' : 'Prepare email enquiry'}
+        {busy ? 'Sending…' : 'Send enquiry'}
         <ArrowRight size={20} />
       </button>
-      <div aria-live="polite">
-        {status && <p className="mt-5 text-sm">{status}</p>}
-        {draft && (
-          <a className="button secondary light mt-4" href={draft}>
-            {'Open email app'}
-            <Mail size={18} />
-          </a>
-        )}
-      </div>
+      <div aria-live="polite">{status && <p className="mt-5 text-sm">{status}</p>}</div>
     </form>
   );
 }

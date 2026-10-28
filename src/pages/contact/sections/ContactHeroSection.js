@@ -65,7 +65,7 @@ export function ContactHeroSection() {
           </div>
         </div>
         <div className="hero-enter">
-          <ContactForm />
+          <ContactForm formName="Contact page form" />
         </div>
       </div>
     </section>

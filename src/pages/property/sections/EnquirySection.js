@@ -45,7 +45,7 @@ export function EnquirySection({ p, tab, setTab, tabs }) {
             {contact.phone}
           </a>
         </div>
-        <ContactForm subject={`Enquiry: ${p.title}`} />
+        <ContactForm subject={`Enquiry: ${p.title}`} formName="Property enquiry form" />
       </div>
     </section>
   );

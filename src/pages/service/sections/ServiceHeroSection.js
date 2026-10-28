@@ -56,7 +56,7 @@ export function ServiceHeroSection({ s }) {
           <p className="muted mt-4">
             {'Tell us what you\u2019re looking for. Our team will help you take the next step.'}
           </p>
-          <ContactForm compact subject={s.title} />
+          <ContactForm compact subject={s.title} formName="Service enquiry form" />
         </aside>
       </div>
     </section>
