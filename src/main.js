@@ -6,7 +6,7 @@ import '@fontsource/mona-sans/400.css';
 import '@fontsource/mona-sans/500.css';
 import '@fontsource/mona-sans/600.css';
 import './styles.css';
-import { Header, Footer } from './components/index.js';
+import { ContactModal, Header, Footer } from './components/index.js';
 import {
   HomePage,
   AboutPage,
@@ -265,6 +265,7 @@ function App() {
       <Header dark={dark} />
       <main id="main-content">{view}</main>
       <Footer />
+      <ContactModal />
     </div>
   );
 }

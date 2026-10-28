@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Button, Heading } from '../../../components/index.js';
 import { data } from '../../../data.js';
@@ -6,6 +6,7 @@ import { data } from '../../../data.js';
 export function TestimonialsSection() {
   const testimonials = data.testimonials;
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const testimonial = testimonials[activeIndex];
   const sentences = testimonial.quote.split('.');
   const headline = sentences[0];
@@ -19,6 +20,24 @@ export function TestimonialsSection() {
     setActiveIndex((current) => (current + 1) % testimonials.length);
   };
 
+  useEffect(() => {
+    if (
+      isPaused ||
+      testimonials.length < 2 ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      return undefined;
+    }
+
+    const timer = window.setInterval(() => {
+      if (!document.hidden) {
+        setActiveIndex((current) => (current + 1) % testimonials.length);
+      }
+    }, 5500);
+
+    return () => window.clearInterval(timer);
+  }, [isPaused, testimonials.length]);
+
   return (
     <section className="section home-testimonial-slider">
       <div className="shell home-testimonial-layout">
@@ -31,7 +50,14 @@ export function TestimonialsSection() {
           <Button href="/contact">{'Talk to our team'}</Button>
         </div>
 
-        <div className="home-testimonial-panel reveal" aria-live="polite">
+        <div
+          className="home-testimonial-panel reveal"
+          aria-live="polite"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocusCapture={() => setIsPaused(true)}
+          onBlurCapture={() => setIsPaused(false)}
+        >
           <button
             className="home-testimonial-arrow previous"
             type="button"

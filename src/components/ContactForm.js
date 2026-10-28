@@ -1,7 +1,7 @@
 ﻿import { useState } from 'react';
 import { ArrowRight, Mail } from 'lucide-react';
 import { contact } from '../data.js';
-export function ContactForm({ compact = false, subject = 'Property enquiry' }) {
+export function ContactForm({ compact = false, subject = 'Property enquiry', onSuccess }) {
   const [status, setStatus] = useState(''),
     [busy, setBusy] = useState(false),
     [draft, setDraft] = useState('');
@@ -17,6 +17,7 @@ export function ContactForm({ compact = false, subject = 'Property enquiry' }) {
     );
     setStatus('Your enquiry is ready. Open your email app below to review and send it.');
     setBusy(false);
+    onSuccess?.();
   }
   return (
     <form onSubmit={submit} className={`contact-form ${compact ? 'compact' : ''}`}>

@@ -6,6 +6,7 @@ export { FAQ } from './Faq.js';
 export { ServiceGrid } from './ServiceGrid.js';
 export { BlogCard, PropertyCard, TeamGrid } from './Cards.js';
 export { ContactForm } from './ContactForm.js';
+export { ContactModal } from './ContactModal.js';
 export { Gallery } from './Gallery.js';
 export { Pagination } from './Pagination.js';
 export { Office } from './OfficeLocation.js';

@@ -7,6 +7,7 @@ import {
   // HomeStorySection,
   JourneySection,
   PartnersSection,
+  ProfessionalsSection,
   PropertyMarqueeSection,
   ServicesSection,
   TestimonialsSection,
@@ -19,6 +20,7 @@ export function HomePage() {
       <HeroSection />
       <TrustedDevelopersSection />
       <AboutSection />
+      <ProfessionalsSection />
       {/* <HomeStorySection /> */}
       <ServicesSection />
       <FeaturedPropertiesSection />

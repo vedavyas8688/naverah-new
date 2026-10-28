@@ -32,6 +32,7 @@ function PartnerTrack({ items, reverse = false }) {
             aria-hidden={index >= items.length}
           >
             <img
+              className={`partner-logo partner-logo-${fileName.replace(/\.[^.]+$/, '')}`}
               src={`/images/partners/${fileName}`}
               alt={index < items.length ? `${name} logo` : ''}
               loading="lazy"
