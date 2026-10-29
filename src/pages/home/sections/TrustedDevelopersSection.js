@@ -1,7 +1,7 @@
 const trustedDevelopers = [
   ['Brigade Group', 'brigade-group.webp'],
   ['Godrej Properties', 'godrej-properties.webp'],
-  ['Lodha', 'lodha.png'],
+  ['Lodha', 'lodha.webp'],
   ['Sobha', 'sobha.webp'],
   ['Century', 'century.webp'],
   ['Assetz', 'assetz.webp'],
@@ -11,10 +11,10 @@ const trustedDevelopers = [
   ['Adarsh Developers', 'adarsh-developers.webp'],
   ['L&T Realty', 'l-and-t-realty.webp'],
   ['TVS Emerald', 'tvs-emerald.webp'],
-  ['RG Unique Structures', 'rg-unique-structures.png'],
-  ['Surya', 'surya.png'],
-  ['Sumadhura', 'sumadhura.png'],
-  ['Alliance Group', 'alliance-group.png'],
+  ['RG Unique Structures', 'rg-unique-structures.webp'],
+  ['Surya', 'surya.webp'],
+  ['Sumadhura', 'sumadhura.webp'],
+  ['Alliance Group', 'alliance-group.webp'],
 ];
 
 export function TrustedDevelopersSection() {

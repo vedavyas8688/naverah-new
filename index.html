@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#10100e" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link
+      rel="preload"
+      href="/node_modules/@fontsource/mona-sans/files/mona-sans-latin-500-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <script>
+      // Discover the homepage hero before the application modules finish loading.
+      if (/^\/(?:index|home-v1)?\/?$/.test(location.pathname)) {
+        const hero = document.createElement('link');
+        hero.rel = 'preload';
+        hero.as = 'image';
+        hero.href = '/images/properties/sobha-infinia/cover.webp';
+        hero.fetchPriority = 'high';
+        document.head.appendChild(hero);
+      }
+    </script>
     <title>Naverah Assets | Your Partner in Property</title>
     <meta
       name="description"

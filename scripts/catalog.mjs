@@ -41,7 +41,7 @@ for (const type of ['articles', 'properties']) {
         'locationBody',
         'brochures',
       ])
-        if (k in q) q[k] = Array.isArray(q[k]) ? [] : '';
+        delete q[k];
       return q;
     }),
   );

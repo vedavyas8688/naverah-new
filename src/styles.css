@@ -1,4 +1,8 @@
-@import 'tailwindcss';
+@import 'tailwindcss' source(none);
+/* Scan application code and rendered content, excluding tooling and generated reports. */
+@source './';
+@source '../index.html';
+@source '../public/content';
 @theme {
   --color-primary: #c49e60;
   --color-secondary: #0a1d37;

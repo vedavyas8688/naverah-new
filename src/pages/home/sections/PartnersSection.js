@@ -4,7 +4,7 @@ const partners = [
   ['L&T Realty', 'l-and-t-realty.webp'],
   ['Brigade Group', 'brigade-group.webp'],
   ['TVS Emerald', 'tvs-emerald.webp'],
-  ['Lodha', 'lodha.png'],
+  ['Lodha', 'lodha.webp'],
   ['Assetz', 'assetz.webp'],
   ['Century', 'century.webp'],
   ['Godrej Properties', 'godrej-properties.webp'],
@@ -13,10 +13,10 @@ const partners = [
   ['Sobha', 'sobha.webp'],
   ['Total Environment', 'total-environment.webp'],
   ['Adarsh Developers', 'adarsh-developers.webp'],
-  ['RG Unique Structures', 'rg-unique-structures.png'],
-  ['Surya', 'surya.png'],
-  ['Sumadhura', 'sumadhura.png'],
-  ['Alliance Group', 'alliance-group.png'],
+  ['RG Unique Structures', 'rg-unique-structures.webp'],
+  ['Surya', 'surya.webp'],
+  ['Sumadhura', 'sumadhura.webp'],
+  ['Alliance Group', 'alliance-group.webp'],
 ];
 
 function PartnerTrack({ items, reverse = false }) {
