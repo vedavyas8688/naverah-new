@@ -1,5 +1,6 @@
 ﻿import { ArrowRight } from 'lucide-react';
 import { CONTACT_MODAL_EVENT } from './ContactModal.js';
+import { useEffect, useRef, useState } from 'react';
 
 export function Button({
   href = '/contact',
@@ -33,10 +34,37 @@ export function Button({
     </a>
   );
 }
-export function Picture({ src, alt = '', className = '', eager = false }) {
+export function Picture({ src, alt = '', className = '', eager = false, defer = false }) {
+  const element = useRef(null);
+  const [nearby, setNearby] = useState(false);
+  useEffect(() => {
+    if (!defer || eager || nearby) return;
+    if (!('IntersectionObserver' in window)) {
+      setNearby(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setNearby(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '600px 0px' },
+    );
+    if (element.current) observer.observe(element.current);
+    return () => observer.disconnect();
+  }, [defer, eager, nearby]);
+  const ready = !defer || eager || nearby;
   return (
-    <div className={`picture ${className}`}>
-      <img src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    <div ref={element} className={`picture ${className}`}>
+      <img
+        src={ready ? src : undefined}
+        alt={alt}
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        fetchPriority={eager ? 'high' : 'auto'}
+      />
     </div>
   );
 }

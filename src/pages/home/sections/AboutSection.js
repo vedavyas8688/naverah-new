@@ -9,6 +9,7 @@ function AnimatedNumber({ value, suffix = '' }) {
   useEffect(() => {
     const element = numberRef.current;
     if (!element) return undefined;
+    let frame;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -26,15 +27,18 @@ function AnimatedNumber({ value, suffix = '' }) {
           const progress = Math.min((currentTime - startTime) / duration, 1);
           const easedProgress = 1 - Math.pow(1 - progress, 3);
           setDisplayValue(Math.round(value * easedProgress));
-          if (progress < 1) requestAnimationFrame(update);
+          if (progress < 1) frame = requestAnimationFrame(update);
         };
-        requestAnimationFrame(update);
+        frame = requestAnimationFrame(update);
       },
       { threshold: 0.45 },
     );
 
     observer.observe(element);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (frame !== undefined) cancelAnimationFrame(frame);
+    };
   }, [value]);
 
   return (
@@ -66,7 +70,7 @@ export function AboutSection() {
           ))}
         </dl>
         <div className="home-about-visual reveal">
-          <Picture src={data.images.about} alt="Naverah real estate" />
+          <Picture src={data.images.about} alt="Naverah real estate" defer />
         </div>
         <div className="home-about-copy reveal">
           <div>
@@ -80,6 +84,7 @@ export function AboutSection() {
               <Button />
               <Button href="/about" outline arrow={false}>
                 Learn more
+                <span className="sr-only"> about Naverah Assets</span>
               </Button>
             </div>
           </div>

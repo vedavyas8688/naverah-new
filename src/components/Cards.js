@@ -5,7 +5,7 @@ import { Picture } from './ui.js';
 export function PropertyCard({ p, large = false }) {
   return (
     <a href={p.url} className={`property-card group reveal ${large ? 'large' : ''}`}>
-      <Picture src={p.image || p.hero} alt={p.title} />
+      <Picture src={p.image || p.hero} alt={p.title} defer />
       <div className="flex justify-between gap-4 items-start mt-7">
         <h3>{p.title}</h3>
         <ArrowUpRight className="shrink-0 mt-2" />
@@ -28,7 +28,7 @@ export function PropertyCard({ p, large = false }) {
 export function BlogCard({ a, featured = false }) {
   return (
     <a href={a.url} className={`blog-card reveal ${featured ? 'featured' : ''}`}>
-      <Picture src={a.image} alt={a.title} />
+      <Picture src={a.image} alt={a.title} defer />
       <div className="blog-card-copy">
         <h3>{a.title}</h3>
         {featured && <p className="muted mt-5 line-clamp-3">{a.description}</p>}

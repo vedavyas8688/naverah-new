@@ -23,6 +23,7 @@ export function HeroSection() {
             </Button>
             <Button href="/about" light outline arrow={false}>
               Learn more
+              <span className="sr-only"> about Naverah Assets</span>
             </Button>
           </div>
         </div>

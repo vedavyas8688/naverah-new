@@ -1,45 +1,11 @@
-import { useState } from 'react';
-import {
-  ArrowDown,
-  ArrowUpRight,
-  Building2,
-  Check,
-  HeartHandshake,
-  Lightbulb,
-  Mail,
-  MapPin,
-  Phone,
-  Search,
-  ShieldCheck,
-  Users,
-} from 'lucide-react';
-import { articles, contact, data, properties, services } from '../../../data.js';
-import {
-  BlogCard,
-  Button,
-  ContactForm,
-  CTA,
-  FAQ,
-  Gallery,
-  Heading,
-  Office,
-  Pagination,
-  Picture,
-  PropertyCard,
-  ServiceGrid,
-  TeamGrid,
-} from '../../../components/index.js';
-export function BlogHeroSection({ query, setQuery, page, setPage, found }) {
-  const today = new Date();
-  today.setHours(23, 59, 59, 999);
+import { useMemo } from 'react';
+import { articles } from '../../../data.js';
+import { Heading, Picture } from '../../../components/index.js';
+import { latestArticleForHero } from '../../../utils/articlePublication.js';
 
-  const latestArticle =
-    articles
-      .filter((article) => {
-        const publicationDate = new Date(article.date);
-        return !Number.isNaN(publicationDate.getTime()) && publicationDate <= today;
-      })
-      .sort((first, second) => new Date(second.date) - new Date(first.date))[0] || articles[0];
+export function BlogHeroSection() {
+  const day = new Date().toDateString();
+  const latestArticle = useMemo(() => latestArticleForHero(articles, new Date(day)), [day]);
 
   return (
     <section className="section-top blog-page-hero">

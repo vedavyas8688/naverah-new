@@ -39,6 +39,7 @@ function CountUp({ value }) {
   useEffect(() => {
     const element = ref.current;
     if (!element) return undefined;
+    let frame;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -56,15 +57,18 @@ function CountUp({ value }) {
           const progress = Math.min((now - startedAt) / duration, 1);
           const eased = 1 - Math.pow(1 - progress, 3);
           setCount(Math.round(target * eased));
-          if (progress < 1) requestAnimationFrame(update);
+          if (progress < 1) frame = requestAnimationFrame(update);
         };
-        requestAnimationFrame(update);
+        frame = requestAnimationFrame(update);
       },
       { threshold: 0.4 },
     );
 
     observer.observe(element);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (frame !== undefined) cancelAnimationFrame(frame);
+    };
   }, [target]);
 
   return (

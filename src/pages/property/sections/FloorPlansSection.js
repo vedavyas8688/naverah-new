@@ -47,7 +47,7 @@ export function FloorPlansSection({ p }) {
             <div className="floor-plan-gate">
               <div className="floor-plan-previews" aria-hidden="true">
                 {p.plans.slice(0, 2).map((plan) => (
-                  <Picture src={plan} alt="" key={plan} />
+                  <Picture src={plan} alt="" key={plan} defer />
                 ))}
               </div>
               <div className="floor-plan-lock-card">

@@ -1,38 +1,16 @@
-import { useRef, useState } from 'react';
-import {
-  ArrowDown,
-  ArrowUpRight,
-  Building2,
-  Check,
-  HeartHandshake,
-  Lightbulb,
-  Mail,
-  MapPin,
-  Phone,
-  Search,
-  ShieldCheck,
-  Users,
-} from 'lucide-react';
-import { articles, contact, data, properties, services } from '../../../data.js';
-import {
-  BlogCard,
-  Button,
-  ContactForm,
-  CTA,
-  FAQ,
-  Gallery,
-  Heading,
-  Office,
-  Pagination,
-  Picture,
-  PropertyCard,
-  ServiceGrid,
-  TeamGrid,
-} from '../../../components/index.js';
-function crore(p) {
-  const v = Number((p.price || '').replace(/,/g, '').match(/[0-9.]+/)?.[0]);
-  return /\bL\b|lakh/i.test(p.price || '') ? v / 100 : v || Infinity;
-}
+import { useRef } from 'react';
+import { Search } from 'lucide-react';
+import { data, properties } from '../../../data.js';
+import { Pagination, PropertyCard } from '../../../components/index.js';
+
+const propertyTypes = [
+  'All',
+  ...new Set([
+    ...data.propertyTypes.map((type) => type.title),
+    ...properties.map((property) => property.type),
+  ]),
+];
+
 export function PropertyListingSection({
   query,
   setQuery,
@@ -78,13 +56,7 @@ export function PropertyListingSection({
             setPage(1);
           }}
         >
-          {[
-            'All',
-            ...new Set([
-              ...data.propertyTypes.map((t) => t.title),
-              ...properties.map((p) => p.type),
-            ]),
-          ].map((t) => (
+          {propertyTypes.map((t) => (
             <option value={t} key={t}>
               {t === 'All' ? 'All property types' : t}
             </option>

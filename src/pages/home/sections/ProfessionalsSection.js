@@ -20,6 +20,7 @@ export function ProfessionalsSection() {
           <Picture
             src="/images/properties/sumadhura-epitome/cover.webp"
             alt="A curated premium residential community in Bangalore"
+            defer
           />
         </div>
 
@@ -49,12 +50,14 @@ export function ProfessionalsSection() {
             <Picture
               src="/images/site/mission.webp"
               alt="Trusted property guidance from consultation to completion"
+              defer
             />
           </div>
           <div className="home-professionals-image home-professionals-image-small">
             <Picture
               src="/images/site/vision.webp"
               alt="Bangalore growth and long-term property potential"
+              defer
             />
           </div>
         </div>

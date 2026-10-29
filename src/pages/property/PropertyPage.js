@@ -1,34 +1,4 @@
-import { useEffect, useState } from 'react';
-import {
-  ArrowDown,
-  ArrowUpRight,
-  Building2,
-  Check,
-  HeartHandshake,
-  Lightbulb,
-  Mail,
-  MapPin,
-  Phone,
-  Search,
-  ShieldCheck,
-  Users,
-} from 'lucide-react';
-import { articles, contact, data, properties, services } from '../../data.js';
-import {
-  BlogCard,
-  Button,
-  ContactForm,
-  CTA,
-  FAQ,
-  Gallery,
-  Heading,
-  Office,
-  Pagination,
-  Picture,
-  PropertyCard,
-  ServiceGrid,
-  TeamGrid,
-} from '../../components/index.js';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { PropertyHeroSection } from './sections/PropertyHeroSection.js';
 import { PropertyNavigationSection } from './sections/PropertyNavigationSection.js';
 import { OverviewSection } from './sections/OverviewSection.js';
@@ -39,30 +9,64 @@ import { FloorPlansSection } from './sections/FloorPlansSection.js';
 import { LocationSection } from './sections/LocationSection.js';
 import { EnquirySection } from './sections/EnquirySection.js';
 import { RelatedPropertiesSection } from './sections/RelatedPropertiesSection.js';
+const PropertyHero = memo(PropertyHeroSection);
+const PropertyContent = memo(function PropertyContent({ p }) {
+  return (
+    <>
+      <OverviewSection p={p} />
+      <AmenitiesSection p={p} />
+      <GallerySection p={p} />
+      <PricingSection p={p} />
+      <FloorPlansSection p={p} />
+      <LocationSection p={p} />
+      <EnquirySection p={p} />
+      <RelatedPropertiesSection p={p} />
+    </>
+  );
+});
+
 export function PropertyPage({ p }) {
   const [tab, setTab] = useState('Overview');
-  const tabs = [
-    'Overview',
-    ...(p.amenities.length ? ['Amenities'] : []),
-    ...(p.gallery.length ? ['Gallery'] : []),
-    ...(p.prices.length ? ['Pricing'] : []),
-    ...(p.plans.length ? ['Floor plans'] : []),
-    ...(p.locationBody ? ['Location'] : []),
-  ];
+  const tabs = useMemo(
+    () => [
+      'Overview',
+      ...(p.amenities.length ? ['Amenities'] : []),
+      ...(p.gallery.length ? ['Gallery'] : []),
+      ...(p.prices.length ? ['Pricing'] : []),
+      ...(p.plans.length ? ['Floor plans'] : []),
+      ...(p.locationBody ? ['Location'] : []),
+    ],
+    [p],
+  );
 
   useEffect(() => {
     const sectionIds = tabs.map((name) => name.toLowerCase().replaceAll(' ', '-'));
+    const navigation = document.querySelector('.property-tabs');
+    const sections = sectionIds.map((id) => ({
+      id,
+      element: document.getElementById(id),
+      margin: 0,
+    }));
+    const updateMargins = () => {
+      const padding =
+        Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+      sections.forEach((section) => {
+        section.margin = section.element
+          ? (Number.parseFloat(getComputedStyle(section.element).scrollMarginTop) || 0) + padding
+          : 0;
+      });
+    };
+    updateMargins();
     let frame;
 
     const updateActiveSection = () => {
       frame = undefined;
-      const navigation = document.querySelector('.property-tabs');
-      const marker = window.scrollY + (navigation?.offsetHeight || 0) + 36;
+      const offset = (navigation?.offsetHeight || 0) + 36;
       let activeSection = sectionIds[0];
 
-      for (const id of sectionIds) {
-        const section = document.getElementById(id);
-        if (section && section.offsetTop <= marker) activeSection = id;
+      for (const { id, element, margin } of sections) {
+        if (element && element.offsetTop <= window.scrollY + Math.max(offset, margin) + 1)
+          activeSection = id;
       }
 
       const activeTab = tabs.find(
@@ -74,30 +78,27 @@ export function PropertyPage({ p }) {
     const handleScroll = () => {
       if (!frame) frame = window.requestAnimationFrame(updateActiveSection);
     };
+    const handleResize = () => {
+      updateMargins();
+      handleScroll();
+    };
 
     updateActiveSection();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll);
+    window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener('resize', handleResize);
       if (frame) window.cancelAnimationFrame(frame);
     };
-  }, [p.url, tabs.join('|')]);
+  }, [p.url, tabs]);
 
   return (
     <>
-      <PropertyHeroSection p={p} tab={tab} setTab={setTab} tabs={tabs} />
-      <PropertyNavigationSection p={p} tab={tab} setTab={setTab} tabs={tabs} />
-      <OverviewSection p={p} tab={tab} setTab={setTab} tabs={tabs} />
-      <AmenitiesSection p={p} tab={tab} setTab={setTab} tabs={tabs} />
-      <GallerySection p={p} tab={tab} setTab={setTab} tabs={tabs} />
-      <PricingSection p={p} tab={tab} setTab={setTab} tabs={tabs} />
-      <FloorPlansSection p={p} tab={tab} setTab={setTab} tabs={tabs} />
-      <LocationSection p={p} tab={tab} setTab={setTab} tabs={tabs} />
-      <EnquirySection p={p} tab={tab} setTab={setTab} tabs={tabs} />
-      <RelatedPropertiesSection p={p} tab={tab} setTab={setTab} tabs={tabs} />
+      <PropertyHero p={p} />
+      <PropertyNavigationSection tab={tab} setTab={setTab} tabs={tabs} />
+      <PropertyContent p={p} />
     </>
   );
 }

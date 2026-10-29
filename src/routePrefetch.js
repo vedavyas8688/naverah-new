@@ -33,6 +33,11 @@ export function installRoutePrefetch() {
   let pending;
   let busy = false;
   let disposed = false;
+  let pageLoaded = document.readyState === 'complete';
+  const markLoaded = () => {
+    pageLoaded = true;
+  };
+  window.addEventListener('load', markLoaded, { once: true });
 
   const destination = (target) => {
     const anchor = target instanceof Element ? target.closest('a[href]') : null;
@@ -58,7 +63,8 @@ export function installRoutePrefetch() {
   };
 
   const warm = async (path) => {
-    if (disposed || limitedConnection() || busy || seen.has(path) || seen.size >= 8) return;
+    if (disposed || !pageLoaded || limitedConnection() || busy || seen.has(path) || seen.size >= 8)
+      return;
     busy = true;
     seen.add(path);
     const link = document.createElement('link');
@@ -104,6 +110,7 @@ export function installRoutePrefetch() {
   document.addEventListener('focusout', leave);
   return () => {
     disposed = true;
+    window.removeEventListener('load', markLoaded);
     cancel();
     document.removeEventListener('pointerover', intent);
     document.removeEventListener('focusin', intent);

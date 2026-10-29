@@ -21,6 +21,7 @@ export function ServicesHeroSection() {
           src="/images/services/services-page/premium-interior-banner.webp"
           alt="Premium residential interior"
           className="services-page-feature reveal"
+          eager
         />
       </div>
     </section>

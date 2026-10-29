@@ -52,6 +52,7 @@ export default defineConfig(({ mode }) => {
     },
     server: { host: '0.0.0.0', allowedHosts: true },
     build: {
+      manifest: true,
       rollupOptions: {
         output: {
           manualChunks: { vendor: ['react', 'react-dom'], motion: ['gsap', 'gsap/ScrollTrigger'] },

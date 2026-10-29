@@ -5,9 +5,10 @@
   "private": true,
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "node scripts/catalog.mjs && vite build",
+    "build": "node scripts/catalog.mjs && vite build && node scripts/route-html.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "check": "node scripts/validate.mjs",
+    "check:build": "node scripts/validate-build.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

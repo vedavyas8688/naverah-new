@@ -33,6 +33,7 @@ export function JourneySection() {
           </div>
           <Button href="/about" outline arrow={false}>
             Learn more
+            <span className="sr-only"> about Naverah Assets</span>
           </Button>
         </div>
         <div className="journey-grid">

@@ -10,32 +10,45 @@ export function ServicesSection() {
     if (!section) return undefined;
 
     let frame;
+    let previousOffset;
     const updateProgress = () => {
       frame = undefined;
       if (!mobile.matches) {
-        section.style.removeProperty('--services-offset');
+        if (previousOffset !== undefined) {
+          section.style.removeProperty('--services-offset');
+          previousOffset = undefined;
+        }
         return;
       }
 
       const rect = section.getBoundingClientRect();
       const distance = Math.max(section.offsetHeight - window.innerHeight, 1);
       const progress = Math.min(Math.max(-rect.top / distance, 0), 1);
-      section.style.setProperty('--services-offset', `${(-progress * 66.6667).toFixed(4)}%`);
+      const offset = `${(-progress * 66.6667).toFixed(4)}%`;
+      if (offset !== previousOffset) {
+        section.style.setProperty('--services-offset', offset);
+        previousOffset = offset;
+      }
     };
     const requestUpdate = () => {
-      if (!frame) frame = window.requestAnimationFrame(updateProgress);
+      if (mobile.matches && frame === undefined)
+        frame = window.requestAnimationFrame(updateProgress);
+    };
+    const changeViewport = () => {
+      if (frame !== undefined) window.cancelAnimationFrame(frame);
+      updateProgress();
     };
 
     updateProgress();
     window.addEventListener('scroll', requestUpdate, { passive: true });
-    window.addEventListener('resize', requestUpdate);
-    mobile.addEventListener('change', requestUpdate);
+    window.addEventListener('resize', changeViewport);
+    mobile.addEventListener('change', changeViewport);
 
     return () => {
-      if (frame) window.cancelAnimationFrame(frame);
+      if (frame !== undefined) window.cancelAnimationFrame(frame);
       window.removeEventListener('scroll', requestUpdate);
-      window.removeEventListener('resize', requestUpdate);
-      mobile.removeEventListener('change', requestUpdate);
+      window.removeEventListener('resize', changeViewport);
+      mobile.removeEventListener('change', changeViewport);
       section.style.removeProperty('--services-offset');
     };
   }, []);
